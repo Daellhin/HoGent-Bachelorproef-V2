@@ -8,6 +8,7 @@
 .Rhistory
 
 ## Core latex/pdflatex auxiliary files:
+## Vscode ignore: **/*.{aux,lof,log,lot,fls,out,toc}
 *.aux
 *.lof
 *.log
@@ -25,6 +26,7 @@
 *.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
+## Vscode ignore: **/*.{bbl,bcf,blg,blx.aux,blx.bib,brf,run.xml}
 *.bbl
 *.bcf
 *.blg
@@ -34,6 +36,7 @@
 *.run.xml
 
 ## Build tool auxiliary files:
+## Vscode ignore: **/*.{fdb_latexmk,synctex,synctex.gz,synctex.gz(busy),pdfsync,tcp}
 *.fdb_latexmk
 *.synctex
 *.synctex.gz
@@ -89,9 +92,11 @@ acs-*.bib
 *-tikzDictionary
 
 # listings
+## Vscode ignore: **/*.{lol}
 *.lol
 
 # makeidx
+## Vscode ignore: **/*.{idx,ilg,ind,ist}
 *.idx
 *.ilg
 *.ind

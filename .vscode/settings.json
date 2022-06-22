@@ -1,0 +1,11 @@
+{
+    "cSpell.enabled": true,
+    "files.exclude": {
+        "**/*.{aux,lof,log,lot,fls,out,toc}": true,
+        "**/*.{bbl,bcf,blg,blx.aux,blx.bib,brf,run.xml}": true,
+        "**/*.{fdb_latexmk,synctex,synctex.gz,synctex.gz(busy),pdfsync,tcp}": true,
+        "**/*.{idx,ilg,ind,ist}": true,
+        "**/*.{lol}": true,
+        "bachproef/source.sh": true,
+    }
+}
