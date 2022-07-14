@@ -1,51 +1,90 @@
-%---------- Inleiding ---------------------------------------------------------
-
+% -- Inleiding --
+% Hier introduceer je werk. Je hoeft hier nog niet te technisch te gaan.
+% Je beschrijft zeker:
+% - de probleemstelling en context
+% - de motivatie en relevantie voor het onderzoek
+% - de doelstelling en onderzoeksvraag/-vragen
 \section{Introductie} % The \section*{} command stops section numbering
 \label{sec:introductie}
+Outdoor navigatiesystemen worden veel gebruikt en hebben het mogelijk gemaakt om zonder kennis van de omgeving van A naar B te gaan. De manier waarop deze applicaties de positie kunnen berekenen is via GPS. Een probleem hiermee is dat GPS niet accuraat werkt in gebouwen, waardoor indoor navigatie minder prevalent is dan outdoor navigatie.
 
-Hier introduceer je werk. Je hoeft hier nog niet te technisch te gaan.
+Er zijn echter wel technieken om dit mogelijk te maken zoals BLE beacons, Wifi, magnetisme, Pedestrian Dead Reckoning(PDR)... Over het gebruik van deze technologieën zijn er al vele studies geschreven en deze technieken zijn ook al toegepast in meerdere betalende applicaties.
 
-Je beschrijft zeker:
+Het is echter niet meteen duidelijk voor ontwikkelaars welke technieken er allemaal beschikbaar zijn en welke het makkelijkst toepasbaar zijn voor het maken van een eigen indoor navigatie applicatie.
+
+Om dit aan te pakken wil dit onderzoek volgende onderzoeksvraag met deelvragen oplossen:
+
+Hoe kan een indoor navigatiesysteem opgezet worden, door gebruik te maken van bestaande technieken en algoritmen?
 
 \begin{itemize}
-  \item de probleemstelling en context
-  \item de motivatie en relevantie voor het onderzoek
-  \item de doelstelling en onderzoeksvraag/-vragen
+  \item Welke positionerings technieken kunnen gebruikt worden?
+  \item Welke pathfinding algoritmen kunnen gebruikt worden?
+  \item Welke manieren van route en gebouw visualisatie kunnen gebruikt worden?
+  \item Welke manieren van data ingave en opslag voor de verschillende systemen kunnen gebruikt worden?
 \end{itemize}
 
-%---------- Stand van zaken ---------------------------------------------------
+% -- Stand van zaken --
+% Hier beschrijf je de state-of-the-art rondom je gekozen onderzoeksdomein. Dit kan bijvoorbeeld een literatuurstudie zijn. Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek? Wat is de relevantie met jouw onderzoek?
 
+% Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Doll1954}! Denk zeker goed na welke werken je refereert en waarom.
+% Je mag gerust gebruik maken van subsecties in dit onderdeel.
 \section{State-of-the-art}
 \label{sec:state-of-the-art}
 
-Hier beschrijf je de \emph{state-of-the-art} rondom je gekozen onderzoeksdomein. Dit kan bijvoorbeeld een literatuurstudie zijn. Je mag de titel van deze sectie ook aanpassen (literatuurstudie, stand van zaken, enz.). Zijn er al gelijkaardige onderzoeken gevoerd? Wat concluderen ze? Wat is het verschil met jouw onderzoek? Wat is de relevantie met jouw onderzoek?
+\subsection{GPS in gouwen}
+De ontvangst van GPS in gebouwen is grotendeels afhankelijk van de constructiematerialen van een gebouw en de sensitiviteit van de ontvangers. In grote betonnen gebouwen is de accuratie van state of the art gps-ontvangers onder de 10m, maar standaard ontvangers zoals gevonden in smartphones hebben een lagere accuratie \autocite{Kjaergaard2010}. Hierdoor zijn er andere manieren voor positionering nodig om accuraat gebruikers te helpen.
 
-Verwijs bij elke introductie van een term of bewering over het domein naar de vakliteratuur, bijvoorbeeld~\autocite{Doll1954}! Denk zeker goed na welke werken je refereert en waarom.
+\subsection{Indoor positionering}
+Er zijn verschillende manieren om indoor positionering te volbrengen elke met hun limitaties, accuratie en kost. Er kan gekozen worden voor beacons zoals Bluetooth low energy (BLE), Wifi en Radio-frequency identification (RFID). Deze technologieën hebben een accuratie van 2 tot 5m \autocite{MendozaSilva2019}. Wanneer er gebruik gemaakt wordt van beacons moet er wel infrastructuur toegevoegd worden, wat een zekere kost meebrengt en niet praktisch is om in elk gebouw toe te voegen.
 
-% Voor literatuurverwijzingen zijn er twee belangrijke commando's:
-% \autocite{KEY} => (Auteur, jaartal) Gebruik dit als de naam van de auteur
-%   geen onderdeel is van de zin.
-% \textcite{KEY} => Auteur (jaartal)  Gebruik dit als de auteursnaam wel een
-%   functie heeft in de zin (bv. ``Uit onderzoek door Doll & Hill (1954) bleek
-%   ...'')
+Er zijn ook manieren van positionering die werken met enkel de sensoren beschikbaar in een smartphone. Dit is dan bijvoorbeeld Pedestrian Dead Reckoning (PDR), magnetische velden en computer vision. Deze technieken bieden een accuratie van 1 tot 10m\autocite{MendozaSilva2019}.
 
-Je mag gerust gebruik maken van subsecties in dit onderdeel.
+\subsection{Pathfinding algoritmen}
+Een belangrijke functie van een navigatie applicatie is het kortste pad te vinden tussen de startpositie en de locatie waar de gebruiker naar toe wil gaan. Om een kortste pad te kunnen bepalen moet er eerst een kost toegeschreven worden aan elk beschikbaar segment. Daarna kan dan een combinatie van segmenten genomen worden om het kortste/goedkoopste pad te bepalen \autocite{Sidhu2020}. Het vinden van het kortste pad is niet triviaal een om dit probleem op te lossen worden er pathfinding algoritmen gebruikt. Algoritmen die gebruikt kunnen worden zijn bijvoorbeeld Dijkstra’s algoritme en A* \autocite{Goel2017}.
 
-%---------- Methodologie ------------------------------------------------------
+\subsection{Visualisatiemethodes}
+Er zijn verschillende methodes om een gebouw en het pad dat een persoon moet volgen voor te stellen.
+Een eerste voorbeeld en de meest simpele manier van voorstellen is met 2D visualisatie, hierbij zijn er verschillende levels om de verdiepen van een gebouw aan te duiden.
+Een meer complexe manier van voorstellen is met 3D visualisatie \autocite{Guo2021}, hierbij heeft de gebruiker meer context van het gebouw in zijn geheel.
+De meest complexe manier is Augmented Reality (AR) visualisatie. Bij deze techniek wordt de camera van de smartphone gebuikt om op het scherm de omgeving te tonen, aangevuld met het te volgen pad en sommige markers \autocite{Khan2019}.
+ 
+\subsection{Data ingave voor gebouwen}
+Afhankelijk van de gekozen positionerings en visualisatie techniek moet er verschillende data ingegeven worden om gebouwen te modelleren. Als er bijvoorbeeld gebruikt wordt gemaakt van magnetisme moet het geomagnetise veld gemeten worden op meerdere plaatsen in het gebouw \autocite{Li2013}.
+Om het kortste pad te vinden heeft een pathfinding algoritme ook data nodig. Dit zijn dan de afmetingen van het gebouw en de plaatsen waar ernaar genavigeerd kan worden. Dit kan in verschillende dataformaten worden opgeslagen, bijvoorbeeld met de open standaard IndoorGML \autocite{Li2016}.
+De visualisatie voor de gebruiker heeft ook data nodig. Wanneer dit in de vorm is van 2D visualisatie dan is een blauwdruk genoeg. Wanneer er gebruikt gemaakt wordt van 3D of augmented reality, zijn er digitale versies of digital twins van het gebouw nodig \autocite{Deng2022}.
+
+\subsection{Bestaande applicaties}
+Er bestaan al meerdere applicatie die indoor navigatie aanbieden, deze zijn zowel in de vorm van afgewerkte applicaties als software development kits (SDKs) beschikbaar. Voorbeelden hiervan zijn
+Navin \footnote{https://nav-in.com/}, Situm \footnote{https://situm.com/en/}, Navigine \footnote{https://navigine.com/} en ViewAR \footnote{https://www.viewar.com/}. 
+Deze applicaties specialiseren zich allemaal lichtelijk op andere manieren, zo gebruiken sommige applicaties enkel beacons voor de beste precisie of zijn andere helemaal infrastructuurloos voor beter flexibiliteit. Er zijn daarnaast ook nog applicaties die enkel AR gebruiken en applicaties die anoniem positie data verzamelen zoals Waze\footnote{https://www.waze.com/} doet voor outdoor navigatie. Naast deze betalende applicaties zijn er geen volledig gratis open source alternatieven.
+
+Dit onderzoek heeft de bedoeling om het makkelijker te maken voor ander developers om hun eigen indoor navigatie applicaties te maken, door een overzicht van de beschikbare technieken en bestaande libraries te verschaffen
+
+% -- Methodologie --
+% Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor experimenten, vragenlijsten, simulaties? Je beschrijft ook al welke tools je denkt hiervoor te gebruiken of te ontwikkelen.
 \section{Methodologie}
 \label{sec:methodologie}
+Het theoretisch gedeelte van dit onderzoek over het opzetten van een indoor navigatie applicatie zal gebeuren aan de hand van een analyse van verschillende papers, thesissen, artikels... Het doel is een zo een volledig mogelijk beeld te vormen van de beschikbare technieken met hun voordelen, limitaties en hoe deze toegepast kunnen worden.
 
-Hier beschrijf je hoe je van plan bent het onderzoek te voeren. Welke onderzoekstechniek ga je toepassen om elk van je onderzoeksvragen te beantwoorden? Gebruik je hiervoor experimenten, vragenlijsten, simulaties? Je beschrijft ook al welke tools je denkt hiervoor te gebruiken of te ontwikkelen.
+Het praktisch gedeelte van dit onderzoek omvat het ontwikkelen van een prototype van een indoor navigatie applicatie. Deze applicatie zal de makkelijkst toepasbare methodes gebruiken die gevonden worden in het theoretische gedeelte om een voorbeeld produceren dat door andere ontwikkelaars kan gebruikt worden als startpunt om hun eigen navigatie applicatie te maken.
 
-%---------- Verwachte resultaten ----------------------------------------------
+% -- Verwachte resultaten --
+% Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de stukken van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet hoe je je data gaat moeten structureren.
 \section{Verwachte resultaten}
 \label{sec:verwachte_resultaten}
+Er wordt verwacht dat een indoor navigatie applicatie kan ontwikkeld worden met de volgende methodes en technologieën:
 
-Hier beschrijf je welke resultaten je verwacht. Als je metingen en simulaties uitvoert, kan je hier al mock-ups maken van de grafieken samen met de verwachte conclusies. Benoem zeker al je assen en de stukken van de grafiek die je gaat gebruiken. Dit zorgt ervoor dat je concreet weet hoe je je data gaat moeten structureren.
+\begin{itemize}
+  \item PRD gebaseerde positionering met gebruikersinterventie wanneer er een navigatiepunt is bereikt, om error te beperken.
+  \item A* gebaseerd algoritme dat kan toegepast worden op een graaf van de navigatiepunten in een gebouw.
+  \item 2D voorstelling met een map per verdieping, aangevuld door een takenlijst met alle stappen die de gebruiker moet voltooien om het doel te bereiken.
+  \item 2D visualisatie en navigatiepunten opgeslagen in het IndoorGML formaat.
+\end{itemize}
 
-%---------- Verwachte conclusies ----------------------------------------------
+% -- Verwachte conclusies --
+% Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is niet erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
 \section{Verwachte conclusies}
 \label{sec:verwachte_conclusies}
+Uit dit onderzoek wordt er verwachten te kunnen concluderen dat het ontwikkelen van een indoor navigatie applicatie door enkel gebruik te maken van bestaande algoritmen mogelijk is. Er zal wel extra moeten gelet worden op de accuratie van de positioneeringstechniek en deze zal moeten aangevuld worden met gebruikersinterventie.
 
-Hier beschrijf je wat je verwacht uit je onderzoek, met de motivatie waarom. Het is \textbf{niet} erg indien uit je onderzoek andere resultaten en conclusies vloeien dan dat je hier beschrijft: het is dan juist interessant om te onderzoeken waarom jouw hypothesen niet overeenkomen met de resultaten.
-
+Er wordt ook verwacht te kunnen concluderen dat er veel mogelijke manieren zijn om positionering en visualisatie te gebruiken maar dat vele hiervan te complex zijn om uit door een enkele ontwikkelaar of klein ontwikkelingsteam.
